@@ -1,22 +1,29 @@
 server:
   port: 8090
+management:
+  server:
+    port: 9010
+  endpoints:
+    web:
+      basePath: /actuator/info
 spring:
   application:
     name: gateway-msf
   cloud:
     gateway:
       routes:
-        - id: CLIENT-MSF
-          uri: lb://CLIENT-MSF
+        - id: client-msf
+          uri: lb://client-msf
           predicates:
             - Path=/api/client/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=0
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
   instance:
-    hostname: localhost
+    preferIpAddress: true
+    hostname: host.docker.internal
     leaseRenewalIntervalInSeconds: 30
     leaseExpirationDurationInSeconds: 90
