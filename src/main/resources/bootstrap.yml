@@ -18,6 +18,12 @@ spring:
             - Path=/api/client/**
           filters:
             - StripPrefix=0
+        - id: account-msf
+          uri: lb://account-msf
+          predicates:
+            - Path=/api/account/**
+          filters:
+            - StripPrefix=0
 eureka:
   client:
     serviceUrl:
